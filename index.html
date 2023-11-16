@@ -14,7 +14,7 @@
 
   <title>Mico</title>
 
-
+ 
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 
@@ -40,7 +40,7 @@
       color: #00C6A9;
     }
     </style>
-  
+  <script src="js/controle.js" ></script>
 
 </head>
 
@@ -67,7 +67,7 @@
             <a href="">
               <i class="fa fa-map-marker" aria-hidden="true"></i>
               <span>
-                Location:09-rue ibn-esprit arian_soghra
+                Location:esprit arian_soghra
               </span>
             </a>
           </div>
@@ -245,9 +245,9 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <form>
+          <form method="post" >
             <h4>
-              BOOK <span>APPOINTMENT</span>
+              Demander <span>Rendez-vous</span>
             </h4>
             <div class="form-row ">
               <div class="form-group col-lg-4">
@@ -257,16 +257,16 @@
               <div class="form-group col-lg-4">
                 <label for="inputDoctorName">Nom Medecin</label>
                 <select name="" class="form-control wide" id="inputDoctorName">
-                  <option value="Normal distribution ">Normal distribution </option>
+                  <option value="">Medecin </option>
                   <option value="Normal distribution ">Normal distribution </option>
                   <option value="Normal distribution ">Normal distribution </option>
                 </select>
               </div>
               <div class="form-group col-lg-4">
-                <label for="inputDepartmentName">Type Rendez-vous</label>
-                <select name="" class="form-control wide" id="inputDepartmentName">
-                  <option value="Normal distribution ">Consultation</option>
-                  <option value="Normal distribution ">Seance </option>
+                <label for="inputtype">Type Rendez-vous</label>
+                <select name="" class="form-control wide" id="inputtype">
+                  <option value="Normal distribution">Consultation</option>
+                  <option value="Normal distribution">Seance </option>
                 </select>
               </div>
             </div>
@@ -290,14 +290,14 @@
               </div>
             </div>
             <div class="btn-box">
-              <button type="submit" class="btn ">Enovyer</button>
+              <button onclick="verif()" class="btn ">Enovyer</button>
             </div>
           </form>
         </div>
       </div>
     </div>
   </section>
-
+  
 
   <!-- end book section -->
 
@@ -316,14 +316,14 @@
           <div class="detail-box">
             <div class="heading_container">
               <h2>
-                About <span>Hospital</span>
+                A <span>Propos nous</span>
               </h2>
             </div>
             <p>
-              has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors
+              hHealthy beauty c'est une clinique dermatologie qui offre des séances de dermatologue et des consultations avec plusieurs médecins.
             </p>
             <a href="">
-              Read More
+              Voir plus
             </a>
           </div>
         </div>
