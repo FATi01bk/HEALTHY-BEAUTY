@@ -112,20 +112,16 @@
                         <span>Admin</span>
                     </a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="profile.html">My Profile</a>
-						<a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
-						<a class="dropdown-item" href="settings.html">Settings</a>
-						<a class="dropdown-item" href="login.html">Logout</a>
+						<a class="dropdown-item" href="profile.html">Mon Profile</a>
+						<a class="dropdown-item" href="login.html">Déconexion</a>
 					</div>
                 </li>
             </ul>
             <div class="dropdown mobile-user-menu float-right">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="profile.html">My Profile</a>
-                    <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
-                    <a class="dropdown-item" href="settings.html">Settings</a>
-                    <a class="dropdown-item" href="login.html">Logout</a>
+                    <a class="dropdown-item" href="profile.html">Mon Profile</a>
+                    <a class="dropdown-item" href="login.html">Déconexion</a>
                 </div>
             </div>
         </div>
@@ -171,41 +167,7 @@
 								<li><a href="provident-fund.html">Provident Fund</a></li>
 							</ul>
 						</li>
-						<li class="submenu">
-							<a href="#"><i class="fa fa-book"></i> <span> Payroll </span> <span class="menu-arrow"></span></a>
-							<ul style="display: none;">
-								<li><a href="salary.html"> Employee Salary </a></li>
-								<li><a href="salary-view.html"> Payslip </a></li>
-							</ul>
-						</li>
-                        <li>
-                            <a href="chat.html"><i class="fa fa-comments"></i> <span>Chat</span> <span class="badge badge-pill bg-primary float-right">5</span></a>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="fa fa-video-camera camera"></i> <span> Calls</span> <span class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a href="voice-call.html">Voice Call</a></li>
-                                <li><a href="video-call.html">Video Call</a></li>
-                                <li><a href="incoming-call.html">Incoming Call</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="fa fa-envelope"></i> <span> Email</span> <span class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a href="compose.html">Compose Mail</a></li>
-                                <li><a href="inbox.html">Inbox</a></li>
-                                <li><a href="mail-view.html">Mail View</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="fa fa-commenting-o"></i> <span> Blog</span> <span class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="blog-details.html">Blog View</a></li>
-                                <li><a href="add-blog.html">Add Blog</a></li>
-                                <li><a href="edit-blog.html">Edit Blog</a></li>
-                            </ul>
-                        </li>
+						
 						<li>
 							<a href="assets.html"><i class="fa fa-cube"></i> <span>Assets</span></a>
 						</li>
@@ -296,7 +258,7 @@
             <div class="content">
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
-                        <h4 class="page-title">Add Appointment</h4>
+                        <h4 class="page-title">Ajouter un Rendez-vous</h4>
                     </div>
                 </div>
                 <div class="row">
@@ -305,13 +267,13 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-										<label>Appointment ID</label>
-										<input class="form-control" type="text" value="APT-0001" readonly="">
+										<label>Id de Rendez-vous</label>
+										<input class="form-control" type="text" value="XXXXXX" readonly="">
 									</div>
                                 </div>
                                 <div class="col-md-6">
 									<div class="form-group">
-										<label>Patient Name</label>
+										<label>Nom Patient</label>
 										<select class="select">
 											<option>Select</option>
 											<option>Jennifer Robinson</option>
@@ -323,21 +285,16 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Department</label>
+                                        <label>Type de Rendez-vous</label>
                                         <select class="select">
-                                            <option>Select</option>
-                                            <option>Dentists</option>
-                                            <option>Neurology</option>
-                                            <option>Opthalmology</option>
-                                            <option>Orthopedics</option>
-                                            <option>Cancer Department</option>
-                                            <option>ENT Department</option>
+                                            <option>Consultation</option>
+                                            <option>Seance</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Doctor</label>
+                                        <label>Medecin</label>
                                         <select class="select">
 											<option>Select</option>
 											<option>Cristina Groves</option>
@@ -358,7 +315,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Time</label>
+                                        <label>Temps</label>
                                         <div class="time-icon">
                                             <input type="text" class="form-control" id="datetimepicker3">
                                         </div>
@@ -368,38 +325,26 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Patient Email</label>
+                                        <label> Email</label>
                                         <input class="form-control" type="email">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Patient Phone Number</label>
+                                        <label>Tel</label>
                                         <input class="form-control" type="text">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Message</label>
+                                <label>Description</label>
                                 <textarea cols="30" rows="4" class="form-control"></textarea>
                             </div>
-                            <div class="form-group">
-                                <label class="display-block">Appointment Status</label>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="status" id="product_active" value="option1" checked>
-									<label class="form-check-label" for="product_active">
-									Active
-									</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="status" id="product_inactive" value="option2">
-									<label class="form-check-label" for="product_inactive">
-									Inactive
-									</label>
-								</div>
+                    
+								
                             </div>
                             <div class="m-t-20 text-center">
-                                <button class="btn btn-primary submit-btn">Create Appointment</button>
+                                <button class="btn btn-primary submit-btn">Ajouter</button>
                             </div>
                         </form>
                     </div>
