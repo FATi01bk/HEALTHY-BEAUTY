@@ -13,6 +13,7 @@ class Fiche_Patient
     private ?string $maladie = null;
     private ?int $num_hisfiche = null;
 
+    
 
     public function __construct($num_Fich = null, $C, $n, $p, $dn, $ag, $adr, $tel, $daj, $m, $numh)
     {
