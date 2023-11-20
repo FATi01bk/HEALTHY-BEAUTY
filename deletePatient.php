@@ -1,5 +1,5 @@
 <?php
 include '../controller/PatientC.php';
-$patientC = new PatientC();
-$patientC->deletePatient($_GET["cin"]);
+$clientC = new PatientC();
+$clientC->deletePatient($_GET["id"]);
 header('Location:listPatients.php');

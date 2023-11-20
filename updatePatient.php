@@ -25,7 +25,8 @@ if (
         foreach ($_POST as $key => $value) {
             echo "Key: $key, Value: $value<br>";
         }
-        $patient= new Patient(
+        $patient = new Patient(
+            null,
             $_POST['cin'],
             $_POST['nom'],
             $_POST['prenom'],
@@ -33,7 +34,7 @@ if (
         );
         var_dump($patient);
         
-        $patientC->updatePatient($patient, $_POST['cin']);
+        $patientC->updatePatient($patient, $_POST['idPatient']);
 
         header('Location:listPatients.php');
     } else
@@ -55,22 +56,29 @@ if (
     <button><a href="listPatients.php">Back to list</a></button>
     <hr>
 
-    <div cin="error">
+    <div id="error">
         <?php echo $error; ?>
     </div>
 
     <?php
-    if (isset($_POST['cinPatient'])) {
-        $patient = $patientC->showPatient($_POST['cinPatient']);
+    if (isset($_POST['idPatient'])) {
+        $patient = $patientC->showPatient($_POST['idPatient']);
         
     ?>
 
         <form action="" method="POST">
             <table>
             <tr>
-                    <td><label for="nom">CINPatient :</label></td>
+                    <td><label for="nom">IdPatient :</label></td>
                     <td>
-                        <input type="text" id="cinPatient" name="cinPatient" value="<?php echo $_POST['cinPatient'] ?>" readonly />
+                        <input type="text" id="idPatient" name="idPatient" value="<?php echo $_POST['idPatient'] ?>" readonly />
+                        <span id="erreurNom" style="color: red"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="cin">Cin :</label></td>
+                    <td>
+                        <input type="text" id="cin" name="cin" value="<?php echo $patient['cin'] ?>" />
                         <span id="erreurCin" style="color: red"></span>
                     </td>
                 </tr>
@@ -96,8 +104,6 @@ if (
                     </td>
                 </tr>
                 
-
-
                 <td>
                     <input type="submit" value="Save">
                 </td>
