@@ -1,52 +1,85 @@
 <?php
 
-include '../Controler/con-rendez_vous.php';
+include '../Controler/con-consultation.php';
 include '../model/rendez-vous.php';
 
 $error = "";
 
+$success = "";
+$consultation = null;
 
-$rendez_vous = null;
 
+$consultationC = new consultationC();
 
-$rendez_vousC = new rendez_vousC();
-if (
-    isset($_POST["num_ren"]) &&
-    isset($_POST["nom_patient"]) &&
-    isset($_POST["nom_docteur"]) &&
-    isset($_POST["date_ren"]) &&
-    isset($_POST["temp_ren"]) &&
-    isset($_POST["type_ren"])&&
-    isset($_POST["tel_ren"]) &&
-    isset($_POST["des_ren"])
-) {
+if (isset($_GET["num_tel"])) {
+    // Récupérer les informations du patient à mettre à jour
+    $consultoupdate = $consultationC->showconsultation($_GET["num_tel"]);
+
+    // create consultation
+    $consultation = null;
+
+    // create an instance of the controller
+    $consultationC = new consultationC();
+
     if (
-        !empty($_POST['num_ren']) &&
-        !empty($_POST['nom_patient']) &&
-        !empty($_POST["nom_docteur"]) &&
-        !empty($_POST["date_ren"]) &&
-        !empty($_POST["temp_ren"]) &&
-        !empty($_POST["type_ren"])&&
-        !empty($_POST["tel_ren"]) &&
-        !empty($_POST["des_ren"])
+        isset($_POST["num_tel"]) &&
+        isset($_POST["nom_patient"]) &&
+        isset($_POST["nom_docteur"]) &&
+        isset($_POST["date_ren"]) &&
+        isset($_POST["temp_ren"]) &&
+        isset($_POST["type_ren"]) 
     ) {
-        $rendez_vous = new rendez_vous(
-            $_POST['num_ren'],
-            $_POST['nom_patient'],
-            $_POST['nom_docteur'],
-            $_POST['date_ren'],
-            $_POST['temp_ren'],
-            $_POST['type_ren'],
-            $_POST['tel_ren'],
-            $_POST['des_ren']
-        );
-        $rendez_vousC->addrendezvous($rendez_vous);
-        header('Location:list-rendez_vous.php');
-    } else
-        $error = "Missing information";
+        
+        $numren = intval($_POST["num_tel"]);
+        
+
+        if ($numren > 0) {  // Assurez-vous que c'est un nombre valide
+            // Reste du code
+            var_dump($_POST);  // Ajoutez cette ligne pour afficher les données du formulaire 
+            
+            try {
+                // Prépare la requête
+                $db = config::getConnexion();
+                $query = $db->prepare(
+                    'UPDATE consultation SET 
+                        nom_patient = :nom_patient,
+                        nom_docteur = :nom_docteur,
+                        date_ren = :daye_ren, 
+                        temp_ren = :temp_ren, 
+                        type_ren= :type_ren,
+                    WHERE num_tel= :num_tel'
+                );
+
+                // Exécute la requête
+                $query->execute([
+                    'nom_patient' => $_POST['nom_patient'],
+                    'nom_docteur' => $_POST['nom_docteur'],
+                    'date_ren' => $_POST['date_ren'],
+                    'temp_ren' => $_POST['temp_ren'],
+                    'type_ren' => $_POST['type_ren'],
+                    'num_tel' => $numren,
+                ]);
+
+                echo $query->rowCount() . " records UPDATED successfully <br>";
+                if ($query->rowCount() > 0) {
+                    $success = "consultation mis à jour avec succès.";
+                    header('Location: list-consultation.php');
+                    exit;
+                } else {
+                    $error = "La mise à jour du patient a échoué.";
+                }
+
+            } catch (PDOException $e) {
+                echo 'Error: ' . $e->getMessage();
+            }
+            // Reste du code
+        } else {
+            $error = "num_tel invalide.";
+        }
+    }
+} else {
+    echo 'Erreur : num_tel non défini.';
 }
-
-
 ?>
 
 <html lang="en">
@@ -130,7 +163,7 @@ if (
                         </li>
                        
                         <li class="active">
-                            <a href="appointments.html"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
+                             <a href="list-consultation.php"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
                         </li>
                         <li>
                             <a href="schedule.html"><i class="fa fa-calendar-check-o"></i> <span>Doctor Schedule</span></a>
@@ -170,47 +203,55 @@ if (
             <div class="content">
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
-                        <h4 class="page-title">Ajouter un Rendez-vous</h4>
+                        <h4 class="page-title">Modifier un Rendez-vous</h4>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-8 offset-lg-2">
-                    <div id="error">
+                <div id="error">
         <?php echo $error; ?>
     </div>
+
+    <div id="success">
+        <?php echo $success; ?>
+    </div>
+
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                    </div>
                         <form  action=""  method="post">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-										<label  for="num_ren">Id de Rendez-vous</label>
-										<input id="idren" class="form-control" type="text" placeholder="XXXXXX" name="num_ren">
+										<label  for="num_tel">Id de Rendez-vous</label>
+										<input id="num_tel" class="form-control" type="text"  name="num_tel" value="<?php echo $consultoupdate['num_tel'] ?>" />
+                                        <span id="erreurnum_tel" style="color: red"></span>
 									</div>
                                 </div>
                                 <div class="col-md-6">
 									<div class="form-group">
-										<label for="nom_patient">Nom Patient</label>
-                                        <span id="erreurnom_patient" style="color: red"></span>
-										<input  class="form-control"  name="nom_patient">
-
+										<label for="nom_patient">Nom Patient</label>   
+										<input id="nom_patient" class="form-control"  name="nom_patient" value="<?php echo $consultoupdate['nom_patient'] ?>">
+                                       <span  style="color: red"></span>
 									</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="type_ren">Type de Rendez-vous</label>
-                                        <span id="erreurtype_ren" style="color: red"></span>
+                                        <label for="type_ren">Type de Rendez-vous</label>                                       
                                         <select class="select" name="type_ren">
+
                                             <option value="consultation">Consultation</option>
                                             <option value="seance">Seance</option>
                                         </select>
+                                        <span style="color: red"></span>                                             
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="nom_docteur">Medecin</label>
-                                        <span id="erreurnom_docteur" style="color: red"></span>
-                                        <input id="erreurnom_docteur" class="form-control" name="nom_docteur">
+                                       
+                                        <input class="form-control" name="nom_docteur" value="<?php echo $consultoupdate['nom_docteur'] ?>"/> 
+                                        <span   style="color: red"></span>
                                     </div>
                                 </div>
                             </div>
@@ -218,9 +259,9 @@ if (
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="date_ren">Date</label>
-                                        <span id="erreurdate_ren" style="color: red"></span>
+                                        <span  style="color: red"></span>
                                         <div class="cal-icon">
-                                            <input type="text" class="form-control datetimepicker" id="erreurdate_ren" name="date_ren">
+                                            <input type="text" class="form-control datetimepicker" name="date_ren" value="<?php echo $consultoupdate['date_ren'] ?>"/>
                                         </div>
                                     </div>
                                 </div>
@@ -229,7 +270,7 @@ if (
                                         <label for="temp_ren">Temps</label>
                                         <span  style="color: red"></span>
                                         <div class="time-icon">
-                                            <input type="text" class="form-control" id="datetimepicker3" name="temp_ren">
+                                            <input type="text" class="form-control" id="datetimepicker3" name="temp_ren" value="<?php echo $consultoupdate['temp_ren'] ?>"/>
                                         </div>
                                     </div>
                                 </div>
@@ -238,27 +279,27 @@ if (
                                 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="tel_ren">Tel</label>
-                                        <span id="erreurtel_ren" style="color: red"></span>
-                                        <input class="form-control" type="text" name="tel_ren">
+                                        <label for="num_tel">Tel</label>
+                                        <span  style="color: red"></span>
+                                        <input class="form-control" type="text" name="num_tel" value="<?php echo $consultoupdate['num_tel'] ?>">
                                     </div>
                                 </div>
                             
                             <div class="form-group">
                                 <label for="des_ren">Description</label>
-                                <span id="erreurdes_ren" style="color: red"></span>
-                                <textarea cols="30" rows="4" class="form-control" name="des_ren"></textarea>
+                                <span  style="color: red"></span>
+                                <textarea cols="30" rows="4" class="form-control" name="des_ren" value="<?php echo $consultoupdate['des_ren'] ?>"></textarea>
                             </div>
                         </div>
                            </div>
                             <div class="m-t-20 text-center">
-                                <input onclick="verifiajout()" type="submit" class="btn btn-primary submit-btn" value="Ajouter">
+                                <input onclick="verifiajout()" type="submit" class="btn btn-primary submit-btn" value="Modifier ">
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-			
+ 
         </div>
     </div>
     <div class="sidebar-overlay" data-reff=""></div>
@@ -283,3 +324,5 @@ if (
 
 <!-- add-appointment24:07-->
 </html>
+
+

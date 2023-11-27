@@ -1,55 +1,7 @@
-<?php
-
-include '../Controler/con-rendez_vous.php';
-include '../model/rendez-vous.php';
-
-$error = "";
-
-
-$rendez_vous = null;
-
-
-$rendez_vousC = new rendez_vousC();
-if (
-    isset($_POST["num_ren"]) &&
-    isset($_POST["nom_patient"]) &&
-    isset($_POST["nom_docteur"]) &&
-    isset($_POST["date_ren"]) &&
-    isset($_POST["temp_ren"]) &&
-    isset($_POST["type_ren"])&&
-    isset($_POST["tel_ren"]) &&
-    isset($_POST["des_ren"])
-) {
-    if (
-        !empty($_POST['num_ren']) &&
-        !empty($_POST['nom_patient']) &&
-        !empty($_POST["nom_docteur"]) &&
-        !empty($_POST["date_ren"]) &&
-        !empty($_POST["temp_ren"]) &&
-        !empty($_POST["type_ren"])&&
-        !empty($_POST["tel_ren"]) &&
-        !empty($_POST["des_ren"])
-    ) {
-        $rendez_vous = new rendez_vous(
-            $_POST['num_ren'],
-            $_POST['nom_patient'],
-            $_POST['nom_docteur'],
-            $_POST['date_ren'],
-            $_POST['temp_ren'],
-            $_POST['type_ren'],
-            $_POST['tel_ren'],
-            $_POST['des_ren']
-        );
-        $rendez_vousC->addrendezvous($rendez_vous);
-        header('Location:list-rendez_vous.php');
-    } else
-        $error = "Missing information";
-}
-
-
-?>
-
+<!DOCTYPE html>
 <html lang="en">
+
+
 <!-- add-appointment24:07-->
 <head>
     <meta charset="utf-8">
@@ -69,7 +21,6 @@ if (
 </head>
 
 <body>
-
     <div class="main-wrapper">
         <div class="header">
 			<div class="header-left">
@@ -175,10 +126,7 @@ if (
                 </div>
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
-                    <div id="error">
-        <?php echo $error; ?>
-    </div>
-                        <form  action=""  method="post">
+                        <form  action="view/add-rendez_vous.php"  method="post">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -189,9 +137,11 @@ if (
                                 <div class="col-md-6">
 									<div class="form-group">
 										<label for="nom_patient">Nom Patient</label>
-                                        <span id="erreurnom_patient" style="color: red"></span>
-										<input  class="form-control"  name="nom_patient">
-
+										<select id="inputno" class="select"  name="nom_patient">
+											<option value="">Select</option>
+											<option value="nom">Patient1</option>
+											<option value="nom">Patient2</option>
+										</select>
 									</div>
                                 </div>
                             </div>
@@ -199,18 +149,21 @@ if (
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="type_ren">Type de Rendez-vous</label>
-                                        <span id="erreurtype_ren" style="color: red"></span>
-                                        <select class="select" name="type_ren">
-                                            <option value="consultation">Consultation</option>
-                                            <option value="seance">Seance</option>
+                                        <select class="select" id="inputto" name="type_ren">
+                                            <option value="type">Consultation</option>
+                                            <option value="type">Seance</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="nom_docteur">Medecin</label>
-                                        <span id="erreurnom_docteur" style="color: red"></span>
-                                        <input id="erreurnom_docteur" class="form-control" name="nom_docteur">
+                                        <select id="mede"class="select" name="nom_docteur">
+											<option value="">Select</option>
+											<option value="med">Medecin1</option>
+											<option value="med">Medecin2</option>
+											
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -218,18 +171,16 @@ if (
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="date_ren">Date</label>
-                                        <span id="erreurdate_ren" style="color: red"></span>
                                         <div class="cal-icon">
-                                            <input type="text" class="form-control datetimepicker" id="erreurdate_ren" name="date_ren">
+                                            <input type="text" class="form-control datetimepicker" id="dat" name="date_ren">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="temp_ren">Temps</label>
-                                        <span  style="color: red"></span>
+                                        <label for="date_ren">Temps</label>
                                         <div class="time-icon">
-                                            <input type="text" class="form-control" id="datetimepicker3" name="temp_ren">
+                                            <input type="text" class="form-control" id="datetimepicker3">
                                         </div>
                                     </div>
                                 </div>
@@ -239,26 +190,41 @@ if (
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="tel_ren">Tel</label>
-                                        <span id="erreurtel_ren" style="color: red"></span>
-                                        <input class="form-control" type="text" name="tel_ren">
+                                        <input class="form-control" type="text" id="inputphone" name="tel_reb">
                                     </div>
                                 </div>
                             
                             <div class="form-group">
                                 <label for="des_ren">Description</label>
-                                <span id="erreurdes_ren" style="color: red"></span>
                                 <textarea cols="30" rows="4" class="form-control" name="des_ren"></textarea>
                             </div>
                         </div>
-                           </div>
+                    
+								
+                            </div>
                             <div class="m-t-20 text-center">
-                                <input onclick="verifiajout()" type="submit" class="btn btn-primary submit-btn" value="Ajouter">
+                                <button onclick="verifiajout()" class="btn btn-primary submit-btn">Ajouter</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-			
+			<div class="notification-box">
+                <div class="msg-sidebar notifications msg-noti">
+                    <div class="topnav-dropdown-header">
+                        <span>Messages</span>
+                    </div>
+                    <div class="drop-scroll msg-list-scroll" id="msg_list">
+                        <ul class="list-box">
+                            <li>
+                                <a href="chat.html">
+                                    <div class="list-item">
+                                        <div class="list-left">
+                                            <span class="avatar">R</span>
+                                        </div>
+                                        
+                </div>
+            </div>
         </div>
     </div>
     <div class="sidebar-overlay" data-reff=""></div>

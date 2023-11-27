@@ -1,36 +1,36 @@
 <?php
-class rendez_vous
-{
-    private ?int $num_ren = null;
+class consultation
+{   
+    private ?int $num_tel = null; 
     private ?string $nom_patient = null;
-    private ?string $nom_docteur = null;
+    private ?string $nom_docteur = null; 
+    private ?int $age_patient = null;
     private ?string $date_ren = null;
     private ?string $temp_ren = null;
     private ?string $type_ren = null;
-    private ?string $tel_ren = null;
-    private ?string $des_ren = null;
 
-    public function __construct($num , $np, $nd, $d,$tr, $t, $el, $des)
+
+    public function __construct($num , $a, $np, $numf, $d, $tr, $t)
     {
-        $this->num_ren = $num;
+        $this->num_tel = $num;
+        $this->nom_docteur = $numf;
+        $this->age_patient = $a;
         $this->nom_patient = $np;
-        $this->nom_docteur = $nd;
         $this->date_ren = $d;
         $this->temp_ren = $tr;
         $this->type_ren = $t;
-        $this->tel_ren = $el;
-        $this->des_ren = $des;
+
     }
 
 
-    public function getnumren()
+    public function getnumtel()
     {
-        return $this->num_ren;
+        return $this->num_tel;
     }
 
-    public function setnumren($num_ren)
+    public function setnumtel($num_tel)
     {
-        $this->num_ren = $num_ren;
+        $this->num_tel = $num_tel;
 
         return $this;
     }
@@ -49,14 +49,14 @@ class rendez_vous
         return $this;
     }
 
-    public function getNomdocteur()
+    public function getage()
     {
-        return $this->nom_docteur;
+        return $this->age_patient;
     }
         
-    public function setnomdocteur($nom_docteur)
+    public function setage($age_patient)
     {
-        $this->nom_docteur = $nom_docteur;
+        $this->age_patient = $age_patient;
 
         return $this;
     } 
@@ -95,23 +95,14 @@ class rendez_vous
 
         return $this;
     }
-    public function gettelren()
-    {
-        return $this->tel_ren;
-    }
-    public function settelren($tel_ren)
-    {
-        $this->tel_ren = $tel_ren;
 
-        return $this;
-    }
-    public function getdesren()
+    public function getNomdocteur()
     {
-        return $this->des_ren;
+        return $this->nom_docteur;
     }
-    public function setdesren($des_ren)
+    public function setnomdocteur($nom_docteur)
     {
-        $this->des_ren = $des_ren;
+        $this->nom_docteur = $nom_docteur;
 
         return $this;
     }
