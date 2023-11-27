@@ -1,0 +1,127 @@
+//NB: lhajet li hathom w les valeurs rahom juste exemple bch nfasser bih yetbaddlou hasb l'énoncé
+
+
+void main ()
+{
+// programme principal
+
+// 1- On configure les interruptions RB0 et PORTB (RB4,RB5,RB6,RB7 -> mch bellezem ikounou lkol interruption enty wl énoncé
+
+// on a aussi des interruptions TIMER mode TIMER et COMPTEUR mais on les déclares pas dans le programme proncipal on les déclare dans les interruptions (mathalan i9ollek quand on touche a RB0 on déclare un timer waktha taamel el configuration mtaa timer fi west l'interruption RB0 et ça c'est l'exemple li bch nekhdem bih hne)
+
+    INTCON.GIE=1; //GIE = Global Interrupr Enable (commencer l'interruption)
+
+    INTCON.INTE=1; // INTE = Registre d'inteeruption RB0 =1 pour configurer l'interruption RB0
+
+    INTCON.RBIE=1; // RBIE = Registre d'inteeruption PORTB =1 pour configurer l'interruption PORTB
+
+    OPTION_REG.INTEDG=0; // Si le front du RB0 est montant =1 si decsendant =0 (hedhy kifesh taarefha, takra l'énonce fl partie interruption RB0 ikollek "Lorsque ce bouton est appuyé (RB0=0)" waktha raw front decsendatn ken kallek (RB0=1) raw decsendant)
+
+
+// 2- Configuration des entrées sorties (avec TRIS) : entrées =1 et sorties =0
+
+// les ports d'interruption doivent etre des entrées
+    TRISA.RA4 = 1;
+    TRISA.RA1 =0;//exemple d'une lampe
+    TRISB = 1;
+
+// 3- Initialisation : que les sorties (avec PORT)
+    PORTA.RA1 =0; //éteint
+
+// 4- Boucle principal (taaref ennou boucle principal ki ikollek fl énoncé "au repos" / "principalement"
+
+    while (1) // boucle infini
+    {
+        PORTA.RA1 =1;
+        delay_ms(1000);//attente de 1s == 1000ms
+
+    }
+
+}
+
+
+void interrupt()
+{
+//programme d'interruption ("interrupt" doit etre écrit correctement)
+
+    if (INTCON.INTF == 1) //si l'interruption est interruption RB0
+    {
+//on va prendre un exemple du TIMER mode TIMER avec une fréquence de 4MHz et du période 5 secondes
+// 1- Configuration du TIMER mode TIMER
+        INTCON.T0IE =1 //Registre d'inteeruption TIMER =1 pour configurer l'interruption TIMER
+                     OPTION_REG = 0b00000111 ; // 0b pour déclarer que la valeure donnée est el binaire 00000111 est les valeurs du chaque registre du OPTION_REG (voir l'annexe des examens) RBPU =0 / INTEDG =0 / T0CS = 0 (car mode Timer) / T0SE = 0 (car mode Timer) / PSA =0 (car mode Timer) / PS2 =1 PS1 = 1 PS0 =1 (pour déclarer que le prédiviseur utilisé est 256
+
+        TMR0 = 0; // Vinitial
+        NB = 76 // NB = durée (en µs -> 1s = 1000000µs)/[(256-Vinitial)* cycle * prédeviseur (choisi)]
+//cycle = 4/Fréquence
+
+
+//deuxiément on va prendre un exemple du TIMER mode COMPTEUR pour que lorsque on appuye 2 fois sur RA4 (TIMER mode COMPTEUR ne fonctionne qu'avec le port RA4)
+// 1- Configuration du TIMER mode COMPTEUR
+             INTCON.T0IE =1 //Registre d'inteeruption TIMER =1 pour configurer l'interruption TIMER
+
+                          OPTION_REG.T0CS=1; // le registre T0CS prend 1 en mode COMPTEUR
+        OPTION_REG.T0SE=0; // si l'interruption COMPTEUR est un front montant (passe de 0 à 1) T0SE = 1 et si l'interruption COMPTEUR est un front descendant (passe de 1 à 0) T0SE = 0 (si il y a pas d'informations dans l'énoncé en met T0SE =0)
+
+        TMR0=254; // TMR0 = 256 - nombre de clicks pour que l'interruption COMPTEUR va subir (dans notre exmple lorsque on appuye 2 fois donc 256-2)
+
+
+        PORTA.RA1 = 0; //exemple du traitement
+
+        INTCON.INTF = 0 ; //acquittement de l'interruption
+    }
+
+    if (INCTON.RBIF ==1) //si l'interruption est interruption PORTB
+    {
+//ici on va tester dans quelle bouton de PORTB on a clicker
+        if (PORTB.RB4==1)
+        {
+            // traitement
+        }
+        if (PORTB.RB5==1)
+        {
+            // traitement
+        }
+        if (PORTB.RB6==1)
+        {
+            // traitement
+        }
+        if (PORTB.RB7==1)
+        {
+            // traitement
+        }
+
+//NB: on ne met pas else if car n'il y a aucune bouton dépend de l'autre
+
+        INTCON.RBIF =0; //acquittement de l'interruption
+
+    }
+
+    if (INCTON.T0IF ==1) //maintenant on va mettre le traitement de l'interruption TIMER (mode TIMER et mode COMPTEUR)
+    {
+
+
+//Cas du TIMER mode TIMER
+        NB--; //on décrémente le NB pour que quand elle atteint 0 elle fait le traitement
+        if (NB ==0)
+        {
+            INCTON.T0IE =0; // on met T0IE à 0 pour blocker la configuration du TIMER dans l'interruption RB0
+//traitement ;
+            delay_ms(1000);
+        }
+
+//Cas du TIMER mode COMPTEUR
+//on fait la meme chose mais sans décrémenter le NB car on a pas NB
+        INCTON.T0IE =0; // on met T0IE à 0 pour blocker la configuration du TIMER dans l'interruption RB0
+//traitement ;
+        delay_ms(1000);
+
+
+        INTCON.T0IF =0; //acquittement de l'interruption
+    }
+
+
+
+}
+
+
