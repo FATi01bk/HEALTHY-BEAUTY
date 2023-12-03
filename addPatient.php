@@ -14,20 +14,23 @@ if (
     isset($_POST["cin"]) &&
     isset($_POST["nom"]) &&
     isset($_POST["prenom"]) &&
-    isset($_POST["email"]) 
+    isset($_POST["email"]) &&
+    isset($_POST["motdepasse"]) 
 ) {
     if (
         !empty($_POST['cin']) &&
         !empty($_POST['nom']) &&
         !empty($_POST["prenom"]) &&
-        !empty($_POST["email"]) 
+        !empty($_POST["email"]) &&
+        !empty($_POST["motdepasse"]) 
     ) {
         $patient = new Patient(
             null,
             $_POST['cin'],
             $_POST['nom'],
             $_POST['prenom'],
-            $_POST['email']
+            $_POST['email'],
+            $_POST['motdepasse']
         );
         $patientC->addPatient($patient);
         header('Location:listPatients.php');
@@ -76,7 +79,7 @@ if (
     <link href="css/style.css" rel="stylesheet" />
     <!-- Responsive style -->
     <link href="css/responsive.css" rel="stylesheet" />
-    <script src="validation.js"></script>
+    <script src="testsaisie.js"></script>
 
 </head>
 
@@ -124,30 +127,13 @@ if (
                             <div class="d-flex mr-auto flex-column flex-lg-row align-items-center">
                                 <ul class="navbar-nav  ">
                                     <li class="nav-item ">
-                                        <a class="nav-link" href="index.html">ACCUEIL</a>
+                                        <a class="nav-link" href="index.php">ACCUEIL</a>
                                     </li>
 
-                                    <li class="nav-item ">
-                                        <a class="nav-link" href="index.html">Mes données personnelles</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="contact2.html"> MES RENDEZ-VOUS</a>
-                                    </li>
                                 </ul>
                             </div>
                             <div class="quote_btn-container">
-                                <a href="">
-                                    <i class="fa fa-user" aria-hidden="true"></i>
-                                    <li class="nav-item ">
-                                        <a class="nav-link" href="espacemedecin.html">Espace Medecin</a>
-                                    </li>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-user" aria-hidden="true"></i>
-                                    <li class="nav-item ">
-                                        <a class="nav-link" href="espacepatient.html">Espace Patient </a>
-                                    </li>
-                                </a>
+                               
                                 <form class="form-inline">
                                     <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
                                         <i class="fa fa-search" aria-hidden="true"></i>
@@ -192,6 +178,11 @@ if (
                                 <input type="text" id="email" name="email" />
                                 <span id="erreurEmail" style="color: red"></span>
                             </div>
+                            <div>
+                                <label for="motdepasse">Motdepasse :</label>
+                                <input type="text" id="motdepasse" name="motdepasse" />
+                                <span id="erreurMotdepasse" style="color: red"></span>
+                            </div>
 
                             <div class="btn_box">
                                 <button type="submit">Se connecter</button>
@@ -232,7 +223,7 @@ if (
 <!-- Custom JS -->
 <script src="js/custom.js"></script>
 <!-- Validation JS -->
-<script src="validation.js"></script>
+<script src="testsaisie.js"></script>
 </body>
 
 </html>

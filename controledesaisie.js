@@ -26,9 +26,12 @@ function validateForm() {
 
 
     // Validate Nom and Prenom (up to 15 characters)
-    if (!/^[a-zA-Z\s']{1,15}$/.test(nom) || !/^[a-zA-Z\s']{1,15}$/.test(prenom)) {
-        document.getElementById("erreurNom").textContent = "Nom et prénom doivent contenir jusqu'à 15 caractères.";
-        document.getElementById("erreurPrenom").textContent = "Nom et prénom doivent contenir jusqu'à 15 caractères.";
+    if (!/^[a-zA-Z\s']{1,15}$/.test(nom) ) {
+        document.getElementById("erreurNom").textContent = "Nom  doit contenir jusqu'à 15 caractères.";
+        isValid = false;
+    }
+    if ( !/^[a-zA-Z\s']{1,15}$/.test(prenom)) {
+        document.getElementById("erreurPrenom").textContent = "prénom doit contenir jusqu'à 15 caractères.";
         isValid = false;
     }
 

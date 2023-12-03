@@ -3,7 +3,6 @@ function validateForm() {
     var cin = document.getElementById("cin").value;
     var nom = document.getElementById("nom").value;
     var prenom = document.getElementById("prenom").value;
-    var email = document.getElementById("email").value;
     var motdepasse = document.getElementById("motdepasse").value;
 
     // Flag to track if the form is valid
@@ -30,13 +29,6 @@ function validateForm() {
     }
 
 
-    // Validate Email (contains '@')
-    if (email.indexOf('@') === -1) {
-        isValid = false;
-        document.getElementById("erreurEmail").textContent = "Email must contain '@'";
-    } else {
-        document.getElementById("erreurEmail").textContent = "";
-    }
     
     if (!/(?=(.*\d){2,})(?=(.*[a-zA-Z]){4,})/.test(motdepasse)) {
         isValid = false;

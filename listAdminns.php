@@ -1,8 +1,8 @@
 <?php
-include "../controller/PatientC.php";
+include "../controller/AdminnC.php";
 
-$c = new PatientC();
-$tab = $c->listPatients();
+$c = new AdminnC();
+$tab = $c->listAdminns();
 
 ?>
 
@@ -36,7 +36,7 @@ $tab = $c->listPatients();
             </div>
             <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
-            <ul class="nav user-menu float-right">
+            <ul class="nav user-menu float-right" style="left: 61px; top: 1px">
                 <li class="nav-item dropdown d-none d-sm-block">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right">3</span></a>
                     <div class="dropdown-menu notifications">
@@ -71,7 +71,7 @@ $tab = $c->listPatients();
                 </li>
                 <li class="nav-item dropdown has-arrow">
                     <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
-                        <span class="user-img"><img class="rounded-circle" src="assets/img/user.jpg" width="40" alt="Admin">
+                        <span class="user-img" style="left: -1px; top: 0px"><img class="rounded-circle" src="assets/img/user.jpg" width="40" alt="Admin">
                             <span class="status online"></span></span>
                         <span>Admin</span>
                     </a>
@@ -96,7 +96,7 @@ $tab = $c->listPatients();
         <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
-                <ul>
+                    <ul>
                         <li class="menu-title">Main</li>
                         <li class="active">
                             <a href="ListAdminns.php"><i class="fa fa-user"></i> <span>Admins</span></a>
@@ -106,10 +106,9 @@ $tab = $c->listPatients();
 							<span lang="fr" style="width: 19px">Patients</span></a>
                         </li>
                         <li class="active">
-                            <a href="listMedecins.php"><i class="fa fa-user-md"></i></i> 
+                            <a href="listMedecins.php"><i class="fa fa-user-md"></i> 
 							<span lang="fr">Docteurs</span></a>
                         </li>
-
                     </ul>
                 </div>
             </div>
@@ -117,8 +116,8 @@ $tab = $c->listPatients();
         <div class="page-wrapper">
             <div class="content">
                 <div class="row">
-                    <div class="col-sm-4 col-3">
-                        <h4 class="page-title">Patients</h4>
+                    <div class="col-sm-4 col-3" style="left: -2px; top: 0px">
+                        <h4 class="page-title">Adminns</h4>
                     </div>
                 </div>
                 <div class="row">
@@ -131,25 +130,23 @@ $tab = $c->listPatients();
                                         <th>Cin</th>
                                         <th>Nom</th>
                                         <th>Prenom</th>
+                                        
                                  
-                                        <th style="width: 205px">Email</th>
-                                        <th>Motdepasse</th>
+                                        <th style="width: 205px">Motdepasse</th>
                                         <th class="text-right">Action</th>
-                
-                                        <?php foreach ($tab as $patient): ?>
+                                        <?php foreach ($tab as $adminn): ?>
                                           <tr>
-                                            <td><?= $patient['id'] ?? ''; ?></td>
-                                            <td><?= $patient['cin'] ?? ''; ?></td>
-                                            <td><?= $patient['nom'] ?? ''; ?></td>
-                                            <td><?= $patient['prenom'] ?? ''; ?></td>
-                                            <td style="width: 205px"><?= $patient['email'] ?? ''; ?></td>
-                                            <td><?= $patient['motdepasse'] ?? ''; ?></td>
+                                            <td><?= $adminn['id'] ?? ''; ?></td>
+                                            <td><?= $adminn['cin'] ?? ''; ?></td>
+                                            <td><?= $adminn['nom'] ?? ''; ?></td>
+                                            <td><?= $adminn['prenom'] ?? ''; ?></td>
+                                            <td><?= $adminn['motdepasse'] ?? ''; ?></td>
                                             <td class="text-right">
-                                               <form method="POST" action="updatePatient.php">
+                                               <form method="POST" action="updateAdminn.php">
                                                 <button type="submit" class="btn btn-info">Update</button>
-                                                <input type="hidden" value="<?= $patient['id'] ?? ''; ?>" name="idPatient">
+                                                <input type="hidden" value="<?= $adminn['id'] ?? ''; ?>" name="idAdminn">
                                                </form>
-                                               <a href="deletePatient.php?id=<?= $patient['id'] ?? ''; ?>" class="btn btn-danger">Delete</a>
+                                               <a href="deleteAdminn.php?id=<?= $adminn['id'] ?? ''; ?>" class="btn btn-danger">Delete</a>
                                             </td>
                                            </tr>
                                         <?php endforeach; ?>

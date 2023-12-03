@@ -96,20 +96,11 @@ $tab = $c->listPatients();
         <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
-                <ul>
+                    <ul>
                         <li class="menu-title">Main</li>
                         <li class="active">
-                            <a href="ListAdminns.php"><i class="fa fa-user"></i> <span>Admins</span></a>
+                            <a href="patients.html"><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
                         </li>
-                        <li class="active">
-                            <a href="listPatients.php"><i class="fa fa-wheelchair"></i> 
-							<span lang="fr" style="width: 19px">Patients</span></a>
-                        </li>
-                        <li class="active">
-                            <a href="listMedecins.php"><i class="fa fa-user-md"></i></i> 
-							<span lang="fr">Docteurs</span></a>
-                        </li>
-
                     </ul>
                 </div>
             </div>
@@ -119,6 +110,9 @@ $tab = $c->listPatients();
                 <div class="row">
                     <div class="col-sm-4 col-3">
                         <h4 class="page-title">Patients</h4>
+                    </div>
+                    <div class="col-sm-8 col-9 text-right m-b-20">
+                        <a href="add-patient.html" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Patient</a>
                     </div>
                 </div>
                 <div class="row">
@@ -133,9 +127,7 @@ $tab = $c->listPatients();
                                         <th>Prenom</th>
                                  
                                         <th style="width: 205px">Email</th>
-                                        <th>Motdepasse</th>
                                         <th class="text-right">Action</th>
-                
                                         <?php foreach ($tab as $patient): ?>
                                           <tr>
                                             <td><?= $patient['id'] ?? ''; ?></td>
@@ -143,7 +135,6 @@ $tab = $c->listPatients();
                                             <td><?= $patient['nom'] ?? ''; ?></td>
                                             <td><?= $patient['prenom'] ?? ''; ?></td>
                                             <td style="width: 205px"><?= $patient['email'] ?? ''; ?></td>
-                                            <td><?= $patient['motdepasse'] ?? ''; ?></td>
                                             <td class="text-right">
                                                <form method="POST" action="updatePatient.php">
                                                 <button type="submit" class="btn btn-info">Update</button>

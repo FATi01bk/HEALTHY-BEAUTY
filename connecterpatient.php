@@ -1,71 +1,8 @@
-<?php
-
-include '../controller/PatientC.php';
-include '../model/Patient.php';
-$error = "";
-
-// create client
-$patient = null;
-// create an instance of the controller
-$patientC = new PatientC();
-
-// Check if the form is submitted and an idPatient is provided
-echo "ID Patient from form: " . $_POST['idPatient'] . "<br>";
-
-if (isset($_POST["idPatient"])) {
-    $patient = $patientC->showPatient($_POST['idPatient']);
-}
-
-if (
-    isset($_POST["cin"]) &&
-    isset($_POST["nom"]) &&
-    isset($_POST["prenom"]) &&
-    isset($_POST["email"]) &&
-    isset($_POST["motdepasse"]) 
-) {
-    if (
-        !empty($_POST['cin']) &&
-        !empty($_POST['nom']) &&
-        !empty($_POST["prenom"]) &&
-        !empty($_POST["email"]) &&
-        !empty($_POST["motdepasse"]) 
-    ) {
-        // Loop through POST data for debugging
-        foreach ($_POST as $key => $value) {
-            echo "Key: $key, Value: $value<br>";
-        }
-
-        // Create a new Patient object
-        $patient = new Patient(
-            null,
-            $_POST['cin'],
-            $_POST['nom'],
-            $_POST['prenom'],
-            $_POST['email'],
-            $_POST['motdepasse']
-        );
-
-        // Display information about the patient
-        var_dump($patient);
-
-        // Update patient information using the controller
-        var_dump($patient); // Add this line before the updatePatient call
-        $patientC->updatePatient($patient, $_POST['idPatient']);
-        var_dump($patient); // Add this line after the updatePatient call
-
-        // Redirect to the list of patients
-        header('Location:listPatients.php');
-    } else {
-        $error = "Missing information";
-    }
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    
     <!-- Basic -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -76,7 +13,7 @@ if (
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>User Display</title>
+    <title>Mico</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
@@ -97,7 +34,8 @@ if (
     <link href="css/style.css" rel="stylesheet" />
     <!-- Responsive style -->
     <link href="css/responsive.css" rel="stylesheet" />
-    <script src="validation.js"></script>
+    <script src="testsaisie.js"></script>
+
 </head>
 
 <body class="sub_page">
@@ -144,30 +82,13 @@ if (
                             <div class="d-flex mr-auto flex-column flex-lg-row align-items-center">
                                 <ul class="navbar-nav  ">
                                     <li class="nav-item ">
-                                        <a class="nav-link" href="index.html">ACCUEIL</a>
+                                        <a class="nav-link" href="index.php">ACCUEIL</a>
                                     </li>
 
-                                    <li class="nav-item ">
-                                        <a class="nav-link" href="index.html">Mes données personnelles</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="contact2.html"> MES RENDEZ-VOUS</a>
-                                    </li>
                                 </ul>
                             </div>
                             <div class="quote_btn-container">
-                                <a href="">
-                                    <i class="fa fa-user" aria-hidden="true"></i>
-                                    <li class="nav-item ">
-                                        <a class="nav-link" href="espacemedecin.html">Espace Medecin</a>
-                                    </li>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-user" aria-hidden="true"></i>
-                                    <li class="nav-item ">
-                                        <a class="nav-link" href="espacepatient.html">Espace Patient </a>
-                                    </li>
-                                </a>
+                               
                                 <form class="form-inline">
                                     <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
                                         <i class="fa fa-search" aria-hidden="true"></i>
@@ -186,52 +107,33 @@ if (
     <section class="contact_section layout_padding-bottom">
         <div class="container">
             <div class="heading_container">
-        
+                <h2>BIENVENUE</h2>
             </div>
             <div class="row">
                 <div class="col-md-7">
                     <div class="form_container">
                         <form action="" method="POST" onsubmit="return validateForm();">
                             <div>
-                                <label for="idPatient">IdPatient :</label>
-                                <input type="text" id="idPatient" name="idPatient" value="<?php echo $_POST['idPatient'] ?>" readonly />
-                                <span id="erreurIdPatient" style="color: red"></span>
-                            </div>
-                            <div>
                                 <label for="cin">Cin :</label>
-                                <input type="text" id="cin" name="cin" value="<?php echo $patient['cin'] ?>" />
+                                <input type="text" id="cin" name="cin" />
                                 <span id="erreurCin" style="color: red"></span>
                             </div>
                             <div>
-                                <label for="nom">Nom :</label>
-                                <input type="text" id="nom" name="nom" value="<?php echo $patient['nom'] ?>" />
-                                <span id="erreurNom" style="color: red"></span>
-                            </div>
-                            <div>
-                                <label for="prenom">Prénom :</label>
-                                <input type="text" id="prenom" name="prenom" value="<?php echo $patient['prenom'] ?>" />
-                                <span id="erreurPrenom" style="color: red"></span>
-                            </div>
-                            <div>
-                                <label for="email">Email :</label>
-                                <input type="text" id="email" name="email" value="<?php echo $patient['email'] ?>" />
-                                <span id="erreurEmail" style="color: red"></span>
-                            </div>
-                            <div>
                                 <label for="motdepasse">Motdepasse :</label>
-                                <input type="text" id="motdepasse" name="motdepasse" value="<?php echo $patient['motdepasse'] ?>" />
+                                <input type="text" id="motdepasse" name="motdepasse" />
                                 <span id="erreurMotdepasse" style="color: red"></span>
                             </div>
 
                             <div class="btn_box">
-                                <button type="submit">Save</button>
-                                <button type="reset">Reset</button>
+                                <button type="submit">Se connecter</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button type="reset">Annuler</button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="col-md-5">
-                    <!-- ... Votre contenu de la colonne droite ... -->
+                    
                 </div>
             </div>
         </div>
@@ -248,22 +150,20 @@ if (
     </footer>
     <!-- Footer section -->
 
-    <!-- jQuery -->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="js/bootstrap.js"></script>
-    <!-- Nice Select -->
-    <script src="jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
-    <!-- Owl Slider -->
-    <script src="owl.carousel.min.js"></script>
-    <!-- Datepicker -->
-    <script src="bootstrap-datepicker.js"></script>
-    <!-- Custom JS -->
-    <script src="js/custom.js"></script>
-    <!-- Validation JS -->
-    <script src="validation.js"></script>
+   <!-- jQuery -->
+<script src="js/jquery-3.4.1.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="js/bootstrap.js"></script>
+<!-- Nice Select -->
+<script src="jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+<!-- Owl Slider -->
+<script src="owl.carousel.min.js"></script>
+<!-- Datepicker -->
+<script src="bootstrap-datepicker.js"></script>
+<!-- Custom JS -->
+<script src="js/custom.js"></script>
+<!-- Validation JS -->
+<script src="testsaisie.js"></script>
 </body>
 
 </html>
-
-
