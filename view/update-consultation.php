@@ -1,7 +1,7 @@
 <?php
 
 include '../Controler/con-consultation.php';
-include '../model/rendez-vous.php';
+include '../model/consultation.php';
 
 $error = "";
 
@@ -11,9 +11,9 @@ $consultation = null;
 
 $consultationC = new consultationC();
 
-if (isset($_GET["num_tel"])) {
+if (isset($_GET["num_ren"])) {
     // Récupérer les informations du patient à mettre à jour
-    $consultoupdate = $consultationC->showconsultation($_GET["num_tel"]);
+    $consultoupdate = $consultationC->showconsultation($_GET["num_ren"]);
 
     // create consultation
     $consultation = null;
@@ -22,15 +22,17 @@ if (isset($_GET["num_tel"])) {
     $consultationC = new consultationC();
 
     if (
+        isset($_POST["num_ren"]) &&
         isset($_POST["num_tel"]) &&
         isset($_POST["nom_patient"]) &&
         isset($_POST["nom_docteur"]) &&
         isset($_POST["date_ren"]) &&
+        isset($_POST["age_patient"]) &&
         isset($_POST["temp_ren"]) &&
         isset($_POST["type_ren"]) 
     ) {
         
-        $numren = intval($_POST["num_tel"]);
+        $numren = intval($_POST["num_ren"]);
         
 
         if ($numren > 0) {  // Assurez-vous que c'est un nombre valide
@@ -74,11 +76,11 @@ if (isset($_GET["num_tel"])) {
             }
             // Reste du code
         } else {
-            $error = "num_tel invalide.";
+            $error = "num_ren invalide.";
         }
     }
 } else {
-    echo 'Erreur : num_tel non défini.';
+    echo 'Erreur : num_ren non défini.';
 }
 ?>
 
@@ -98,7 +100,7 @@ if (isset($_GET["num_tel"])) {
 		<script src="js/html5shiv.min.js"></script>
 		<script src="js/respond.min.js"></script>
 	<![endif]-->
-    <script src="js\controle.js" ></script>
+    <script src="js/controle.js" ></script>
 </head>
 
 <body>
@@ -163,7 +165,7 @@ if (isset($_GET["num_tel"])) {
                         </li>
                        
                         <li class="active">
-                             <a href="list-consultation.php"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
+                             <a href="list-rendez_vous.php"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
                         </li>
                         <li>
                             <a href="schedule.html"><i class="fa fa-calendar-check-o"></i> <span>Doctor Schedule</span></a>
@@ -203,7 +205,7 @@ if (isset($_GET["num_tel"])) {
             <div class="content">
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
-                        <h4 class="page-title">Modifier un Rendez-vous</h4>
+                        <h4 class="page-title">Valider le rendez_vous</h4>
                     </div>
                 </div>
                 <div id="error">
@@ -217,13 +219,13 @@ if (isset($_GET["num_tel"])) {
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
                     </div>
-                        <form  action=""  method="post">
+                        <form  method="post">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-										<label  for="num_tel">Id de Rendez-vous</label>
-										<input id="num_tel" class="form-control" type="text"  name="num_tel" value="<?php echo $consultoupdate['num_tel'] ?>" />
-                                        <span id="erreurnum_tel" style="color: red"></span>
+										<label  for="num_ren">Id de Rendez-vous</label>
+										<input id="num_ren" class="form-control" type="text"  name="num_ren" value="<?php echo $consultoupdate['num_ren'] ?>" />
+                                        <span id="erreurnum_ren" style="color: red"></span>
 									</div>
                                 </div>
                                 <div class="col-md-6">
@@ -288,14 +290,25 @@ if (isset($_GET["num_tel"])) {
                             <div class="form-group">
                                 <label for="des_ren">Description</label>
                                 <span  style="color: red"></span>
-                                <textarea cols="30" rows="4" class="form-control" name="des_ren" value="<?php echo $consultoupdate['des_ren'] ?>"></textarea>
+                                <textarea cols="30" rows="4" class="form-control" name="des_ren" value=""></textarea>
                             </div>
                         </div>
                            </div>
-                            <div class="m-t-20 text-center">
-                                <input onclick="verifiajout()" type="submit" class="btn btn-primary submit-btn" value="Modifier ">
+                           <div class="m-t-20 text-center">
+                                <input type="submit" class="btn btn-primary submit-btn" value="Modifier ">
                             </div>
+                            
                         </form>
+                        <script>
+                       document.forms[0].addEventListener("submit", function(evenement) { 
+                     if (document.getElementById("num_ren").value == "0") {
+                    evenement.preventDefault();
+                         alert("saisir un id valide");
+                      document.getElementById("num_ren").focus();
+                      
+                        }
+                  });
+                         </script>
                     </div>
                 </div>
             </div>

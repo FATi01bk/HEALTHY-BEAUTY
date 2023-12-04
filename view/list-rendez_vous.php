@@ -92,7 +92,7 @@ $tab = $c->listerendezvous();
                         
 						
 						<li>
-							<a href="demanderendez_vous.php"><i class="fa fa-bell-o"></i> <span>liste des demandes</span></a>
+							<a href="liste-consultation.php"><i class="fa fa-bell-o"></i> <span>liste des demandes</span></a>
 						</li>
 						
                         <li>
@@ -116,6 +116,17 @@ $tab = $c->listerendezvous();
 				<div class="row">
 					<div class="col-md-12">
 						<div class="table-responsive">
+                        <div class="row filter-row">
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
+                        <div class="form-group form-focus">
+                            <label class="focus-label">Nom Patient</label>
+                            <input type="text" class="form-control floating">
+                        </div>
+                    </div>        
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
+                        <a href="#" class="btn btn-success btn-block"> Chercher </a>
+                    </div>
+                </div>           
 							<table class="table table-striped custom-table">
                             <thead>
 									<tr>

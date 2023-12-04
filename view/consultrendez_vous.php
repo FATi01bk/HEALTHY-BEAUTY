@@ -126,6 +126,7 @@ $tab = $c->listeconsultation();
             <table class="table table-striped custom-table">
               <thead>
                 <tr>
+                <th>Num_ren</th>
                   <th>Nom Patient</th>
                   <th>Age</th>
                   <th>Type de Rendez-vous</th>
@@ -139,7 +140,7 @@ $tab = $c->listeconsultation();
                 <?php
                  foreach ($tab as $consultation) {
                ?>
-
+                <td><?= $consultation['num_ren']; ?></td>
                <td><?= $consultation['nom_patient']; ?></td>
                <td><?= $consultation['age_patient']; ?></td>      
               <td><?= $consultation['type_ren']; ?></td>

@@ -11,6 +11,7 @@ $consultation = null;
 
 $consultationC = new consultationC();
 if (
+  isset($_POST["num_tel"]) &&
     isset($_POST["num_tel"]) &&
     isset($_POST["nom_patient"]) &&
     isset($_POST["nom_docteur"]) &&
@@ -289,41 +290,51 @@ if (
     <div class="container">
       <div class="row">
         <div class="col">
+          
           <form method="post" >
             <h4>
               Demander <span>Rendez-vous</span>
             </h4>
+
             <div class="form-row ">
               <div class="form-group col-lg-4">
-                <label for="nom_patient">Nom Patient</label>
-                <input type="text" class="form-control" id="inputPatientName" placeholder="">
+              <label for="nom_patient">Nom Patient</label>
+               <span id="erreurnom_patient" style="color: red"></span>
+						 	<input  class="form-control"  name="nom_patient">
               </div>
+
               <div class="form-group col-lg-4">
-                <label for="nom_docteur">Nom Medecin</label>
-                <input name="nom_docteur" class="form-control wide" id="nom_patient">
+              <label for="nom_docteur">Nom Medecin</label>
+                <span id="erreurnom_docteur" style="color: red"></span>
+						  	<input  class="form-control"  name="nom_docteur">
               </div>
+
               <div class="form-group col-lg-4">
-                <label for="type_ren">Type Rendez-vous</label>
+              <label for="type_ren">Type Rendez-vous</label>
                 <select name="type_ren" class="form-control wide" id="type_ren">
                   <option value="consultation">Consultation</option>
                   <option value="Seance">Seance </option>
                 </select>
               </div>
+
             </div>
             <div class="form-row ">
               <div class="form-group col-lg-4">
                 <label for="num_tel">Tel</label>
                 <input type="texte" class="form-control" id="num_tel" placeholder="XXXXXXXXXX">
               </div>
+
               <div class="form-group col-lg-4">
                 <label for="age_patient">Age</label>
+                <span id="erreurage_patient" style="color: red">
                 <input type="text" class="form-control" id="age_patient" placeholder="">
               </div>
+
               <div class="form-group col-lg-4">
                 <label for="date_ren"> Date </label>
                 <div class="input-group date" id="date_ren" data-date-format="mm-dd-yyyy">
                   <input type="text" class="form-control" >
-                  <span class="input-group-addon date_icon">
+                  <span id="erreurdate_ren" class="input-group-addon date_icon">
                     <i class="fa fa-calendar" aria-hidden="true"></i>
                   </span>
                 </div>
@@ -331,7 +342,7 @@ if (
               <div class="form-group col-lg-4">
                 <label for="temp_ren"> temp </label>
                 <div cclass="time-icon" id="datetimepicker3" temp-temp-format="h:m">
-                  <input type="text" class="form-control" >
+                  <input id="erreurtemp_ren" type="text" class="form-control" >
                 </div>
               </div>
             </div>

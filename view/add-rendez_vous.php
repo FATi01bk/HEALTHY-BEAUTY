@@ -42,8 +42,7 @@ if (
         );
         $rendez_vousC->addrendezvous($rendez_vous);
         header('Location:list-rendez_vous.php');
-    } else
-        $error = "Missing information";
+    }
 }
 
 
@@ -65,7 +64,7 @@ if (
 		<script src="js/html5shiv.min.js"></script>
 		<script src="js/respond.min.js"></script>
 	<![endif]-->
-    <script src="js\controle.js" ></script>
+    <script src="js/controle.js" ></script>
 </head>
 
 <body>
@@ -130,7 +129,7 @@ if (
                         </li>
                        
                         <li class="active">
-                            <a href="appointments.html"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
+                            <a href="list-rendez_vous.php"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
                         </li>
                         <li>
                             <a href="schedule.html"><i class="fa fa-calendar-check-o"></i> <span>Doctor Schedule</span></a>
@@ -183,7 +182,7 @@ if (
                                 <div class="col-md-6">
                                     <div class="form-group">
 										<label  for="num_ren">Id de Rendez-vous</label>
-										<input id="idren" class="form-control" type="text" placeholder="XXXXXX" name="num_ren">
+										<input id="num_ren" class="form-control" type="text" placeholder="XXXXXX" name="num_ren">
 									</div>
                                 </div>
                                 <div class="col-md-6">
@@ -252,9 +251,57 @@ if (
                         </div>
                            </div>
                             <div class="m-t-20 text-center">
-                                <input onclick="verifiajout()" type="submit" class="btn btn-primary submit-btn" value="Ajouter">
+                                <input type="submit" class="btn btn-primary submit-btn" value="Ajouter">
                             </div>
                         </form>
+                        <script>
+                          
+
+                            document.forms[0].addEventListener("submit", function(evenement) { 
+
+                                  var lettersOnlyRegex = /^[A-Za-z]+$/;
+                                  var numbersOnlyRegex = /^[0-9]+$/;
+                                  
+
+                                  if (!numbersOnlyRegex.test(document.getElementById("num_ren").value) || num_ren=== ""){
+                                  evenement.preventDefault();
+                                  alert("saisir un id valide");
+                                    document.getElementById("num_ren").focus();
+                                    return false;
+                                  }
+
+                                  if (!numbersOnlyRegex.test(document.getElementById("tel_ren").value) || tel_ren=== ""){
+                                  evenement.preventDefault();
+                                  alert("saisir numero de telephone valide");
+                                    document.getElementById("tel_ren").focus();
+                                    return false;
+                                  }
+
+                                  if (!lettersOnlyRege.test(document.getElementById("nom_patient").value) || nom_patient=== ""){
+                                  evenement.preventDefault();
+                                  alert("saisir le nom de patient ");
+                                    document.getElementById("nom_patient").focus();
+                                    return false;
+                                  }
+
+                                  if (!lettersOnlyRege.test(document.getElementById("nom_docteur").value) || nom_docteur=== ""){
+                                  evenement.preventDefault();
+                                  alert("saisir le nom de docteur ");
+                                    document.getElementById("nom_docteur").focus();
+                                    return false;
+                                  }
+
+                                  var dateActuelle = new Date();
+                                  //dateActuelle.setDate(dateActuelle.getDate() + 1);
+                                  if (document.getElementById("erreurdate_ren").value < dateActuelle) {
+                                   alert("Veuillez sélectionner une date à partir de demain.");
+                                   document.getElementById("erreurdate_ren").focus();
+                                       return false;
+                                     }
+
+                                 });
+
+                         </script>
                     </div>
                 </div>
             </div>

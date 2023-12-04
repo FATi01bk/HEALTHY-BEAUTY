@@ -154,6 +154,7 @@ $tab = $c->listeconsultation();
                                         <th>Date</th>
                                         <th>temp</th>
                                         <th>Type </th>
+                                        <th class="text-center">Statue</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -168,13 +169,23 @@ $tab = $c->listeconsultation();
                                         <td><?= $consultation['date_ren']; ?></td>
                                         <td><?= $consultation['temp_ren']; ?></td>
                                         <td><?= $consultation['type_ren']; ?></td>
+                                        <td class="text-center">
+                                            <div class="dropdown action-label">
+                                                <a class="custom-badge status-purple dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                                                    New
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="update-consultation.php?num_ren=<?= $consultation['num_ren']; ?>" class="dropdown-item">Acceptée</a>
+                                                    <a class="dropdown-item" href="#">Refusée</a>
+                                                </div>
+                                            </div>
+                                        </td>
      
                                     </tr>
                      
                                               <?php
                     }
-                    ?>    
-                                    
+                    ?>                   
                                 </tbody>
                             </table>
                         </div>

@@ -101,4 +101,13 @@ class rendez_vousC
             $e->getMessage();
         }
     }
+
+    public function chernom($nom) {
+        $sql =" SELECT * FROM rendez_vous where num Like nom_patient";
+        $sdo =config::getConnexion();
+        $list =$pdo->prepare($sql);
+        $list->execute(['nom' => "%nom%"]);
+        $result = $list->fetchAll();
+        return $result;
+    }
 }

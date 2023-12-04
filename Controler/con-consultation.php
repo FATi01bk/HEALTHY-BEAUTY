@@ -19,10 +19,10 @@ class consultationC
 
     function deleteconsultation($num)
     {
-        $sql = "DELETE FROM consultation WHERE num_tel = :num_tel";
+        $sql = "DELETE FROM consultation WHERE num_ren = :num_ren";
         $db = config::getConnexion();
         $req = $db->prepare($sql);
-        $req->bindValue(':num_tel', $num);
+        $req->bindValue(':num_ren', $num);
     
         try {
             $req->execute();
@@ -35,12 +35,12 @@ class consultationC
     function addconsultation($consultation)
     {
         $sql = "INSERT INTO consultation 
-        VALUES (:num_tel,:nom_docteur,:nom_patient,:age_patient,:date_ren,:temp_ren,:type_ren)";
+        VALUES (:num_ren,:num_tel,:nom_docteur,:nom_patient,:age_patient,:date_ren,:temp_ren,:type_ren)";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
             $query->execute([
-                
+                'num_ren' => $consultation->getnumren(),
                 'num_tel' => $consultation->getnumtel(),
                 'nom_docteur' => $consultation->getNomdocteur(),
                 'nom_patient' => $consultation->getNompatient(),
@@ -55,9 +55,9 @@ class consultationC
     }
 
 
-    function showconsultation($num_tel)
+    function showconsultation($num_ren)
     {
-        $sql = "SELECT * from consultation where num_tel = $num_tel";
+        $sql = "SELECT * from consultation where num_ren = $num_ren";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -69,7 +69,7 @@ class consultationC
         }
     }
 
-    function updateconsultation($consultation, $num_tel)
+    function updateconsultation($consultation, $num_ren)
     {   
         try {
             $db = config::getConnexion();
@@ -80,12 +80,14 @@ class consultationC
                     age_patient = :age_patient, 
                     date_ren = :date_ren, 
                     temp_ren = :temp_ren, 
-                    type_ren = :type_ren
-                WHERE num_tel= :num_tel'
+                    type_ren = :type_ren,
+                    num_tel = :num_tel
+                WHERE num_ren= :num_ren'
             );
             
             $query->execute([
-                'num_tel' => $num_tel,
+                'num_ren' => $consultation-> getnumren(),
+                'num_tel' => $consultation-> getnumtel(),
                 'nom_patient' => $consultation-> getNompatient(),
                 'nom_docteur' => $consultation-> getNomdocteur(),
                 'age_patient' => $consultation->getage(),

@@ -72,6 +72,7 @@ function verifiajout() {
     var selectedOption = document.getElementById("erreurnom_docteur").value;
 
     if (selectedOption === "") {
+        
         alert("Veuillez choisir un médecin.");
         document.getElementById("erreurnom_docteur").focus();
         return false;
@@ -91,4 +92,13 @@ if (!numbersOnlyRegex.test(tel) || tel=== "") {
     return false;
 }
 
+}
+
+function verifimodif(){
+
+    if (document.getElementById("num_ren").value === "0") {
+        alert("saisir l'id du rendez_vous");
+        document.getElementById("num_ren").focus();
+        return false;
+    }
 }

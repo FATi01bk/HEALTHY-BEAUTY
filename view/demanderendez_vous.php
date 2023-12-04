@@ -190,6 +190,7 @@ $tab = $c->listeconsultation();
                             <table class="table table-striped custom-table mb-0 datatable">
                                 <thead>
                                     <tr>
+                                    <th>Numero</th>
                                         <th>Patient</th>
                                         <th>Medecin</th>
                                         <th>Age</th>
@@ -204,7 +205,7 @@ $tab = $c->listeconsultation();
                                     foreach ($tab as $consultation) {
                                     ?>
                                     <tr>
-                                    
+                                    <td><?= $consultation['num_ren']; ?></td>
                                         <td><?= $consultation['nom_patient']; ?></td>
                                         <td><?= $consultation['nom_docteur']; ?></td>
                                         <td><?= $consultation['age_patient']; ?></td>
@@ -219,15 +220,15 @@ $tab = $c->listeconsultation();
 												<div class="dropdown-menu dropdown-menu-right">                                 
                                                <button  class="dropdown-item"></button>
                                                <div>
-                                               <a href="update-consultation.php?num_tel=<?= $rendez_vous['num_tel']; ?>" class="dropdown-item"><i class="fa fa-pencil m-r-5"></i>Accepter</a>
+                                               <a href="update-consultation.php?num_tel=<?= $rendez_vous['num_ren']; ?>" class="dropdown-item"><i class="fa fa-pencil m-r-5"></i>Accepter</a>
                                               </div>
                                               <div>
-                                               <a href="update-consultation.php?num_tel=<?= $rendez_vous['num_tel']; ?>" class="dropdown-item"><i class="fa fa-pencil m-r-5"></i>Mofifier</a>
+                                               <a href="update-consultation.php?num_tel=<?= $rendez_vous['num_ren']; ?>" class="dropdown-item"><i class="fa fa-pencil m-r-5"></i>Mofifier</a>
                                               </div>
                                             </form>
 
                                                  <div>
-													<a href="delete-consultation.php?num_tel=<?php echo $rendez_vous['num_tel']; ?>" class="dropdown-item" ><i class="fa fa-trash-o m-r-5"></i> Supprimer</a>
+													<a href="delete-consultation.php?num_tel=<?php echo $rendez_vous['num_ren']; ?>" class="dropdown-item" ><i class="fa fa-trash-o m-r-5"></i> Supprimer</a>
                  </div>
                                                 </div>
 											</div>

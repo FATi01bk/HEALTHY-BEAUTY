@@ -1,6 +1,7 @@
 <?php
 class consultation
 {   
+    private ?int $num_ren = null;
     private ?int $num_tel = null; 
     private ?string $nom_patient = null;
     private ?string $nom_docteur = null; 
@@ -22,6 +23,18 @@ class consultation
 
     }
 
+    public function getnumren()
+    {
+        return $this->num_ren;
+    }
+
+    public function setnumren($num_ren)
+    {
+        $this->num_ren = "0000";
+
+        return $this;
+    }
+    
 
     public function getnumtel()
     {
